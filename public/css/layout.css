@@ -1,0 +1,39 @@
+
+#idNav {
+    background-color: #6351ce !important;
+    /*height: 80px;*/
+}
+
+
+#idNav > div > nav
+{
+    background-color: #6351ce !important;
+    /*height: 80px;*/
+}
+.navbar-brand img {
+    height: 80px;
+    width: 100px;
+}
+
+@media screen and (min-width: 991px) {
+    #idNav {
+        height: 80px;
+    }
+
+    #idNav > div > nav
+    {
+        height: 80px;
+    }
+
+    /*.category {*/
+        /*display: none;*/
+    /*}*/
+}
+
+@media screen and (max-width: 991px) {
+
+
+    .category {
+    display: none;
+    }
+}
