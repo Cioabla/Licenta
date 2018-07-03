@@ -14,17 +14,15 @@
 Route::get('/' , 'HomeController@index');
 
 Route::get('category/{name}/{page}' , 'CategoryController@index');
-
 Route::get('products/{name}/{page}' , 'CategoryController@products');
-Route::get('product/{name}' , 'ViewProductController@index');
 
+Route::get('product/{name}' , 'ViewProductController@index');
 
 Route::get('/register' , 'AuthController@indexRegister');
 Route::get('/login' , 'AuthController@indexLogin');
 
 Route::post('/register/user' , 'AuthController@insert');
 Route::post('/login/user' , 'AuthController@login');
-
 Route::get('/logout' , 'AuthController@logout');
 
 

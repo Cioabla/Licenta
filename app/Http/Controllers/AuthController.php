@@ -37,29 +37,43 @@ class AuthController extends Controller
     public function insert(Request $request)
     {
 
+
         if($this->checkLogin()==true)
         {
             return redirect('/');
         }
-//        $request->replace(['foo' => 'bar']);
-//        dd($request->name);
 
         if($request->password != $request->password2)
         {
-            $data = [
-                'retypepassword' => 'Please write the same password'
-            ];
-            return view('auth/register',compact('data'));
+
+            $user = array_merge($request->only('name','username','email'),[
+                'error' => ['password' => 'Please write the same password']
+            ]);
+
+            $user = json_decode(json_encode($user));
+
+            return view('auth/register',compact('user'));
         }
 
         $user = $this->guzzlePost($request->all(),'users/add');
 
+//        $test = ['test1' => [
+//                            'test1item1' => 'item1',
+//                            'test1item2' => 'item2'
+//                ],
+//                'test2' => [
+//                    'test2item1' => 'item2',
+//                    'test2item2' => 'item2'
+//                ],
+//            'test3' => 'item1'
+//        ];
+//        $test = json_decode(json_encode($test));
+//        dd($test->test1->test1item1);
+        if(!empty($user['error']))
+        {
+            $user = array_merge($request->only('name','username','email'),$user);
+            $user = json_decode(json_encode($user));
 
-        if(!empty($user['nametaken']))
-        {
-            return view('auth/register',compact('user'));
-        }else if(!empty($user['emailtaken']))
-        {
             return view('auth/register',compact('user'));
         }
 
@@ -76,9 +90,28 @@ class AuthController extends Controller
             return redirect('/');
         }
 
-        $user =  $this->guzzleGet('users/login/'.$request->name);
-        dd($user);
-        $this->createSession($this->jwtDecode($user));
+//        $user =  $this->jwtDecode($this->guzzleGet('users/login/'.$request->username));
+        $user = $this->guzzleGet('users/login/'.$request->usernameOrEmail);
+
+        if(!empty($user['error']))
+        {
+            $user = array_merge($request->only('usernameOrEmail'),[
+                'error' => 'The user or password is incorrect'
+            ]);
+            return view('auth/login',compact('user'));
+        }
+
+        $user =  $this->jwtDecode($user);
+
+        if($user->password != $request->password)
+        {
+            $user = array_merge($request->only('usernameOrEmail'),[
+                'error' => 'The user or password is incorrect'
+            ]);
+            return view('auth/login',compact('user'));
+        }
+
+        $this->createSession($user);
 
         return redirect('/');
     }

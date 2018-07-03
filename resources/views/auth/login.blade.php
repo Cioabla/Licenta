@@ -14,9 +14,17 @@
                         <h2 class="text-center">Login!</h2>
                         <form method="post" action="/login/user">
                             {{ csrf_field() }}
-                            <input name="name" type="text" placeholder="Name"/>
+                            <input name="usernameOrEmail" type="text" placeholder="Username or Email"
+                                   @if(!empty($user['usernameOrEmail']))
+                                        value="{{ $user['usernameOrEmail'] }}"
+                                   @endif
+                            />
                             <input name="password" type="password" placeholder="Password"/>
-                            {{--<input name="address" type="text" placeholder="Address"/>--}}
+
+                            @if(!empty($user['error']))
+                                        {{ $user['error'] }}
+                            @endif
+
                             <button type="submit" class="btn btn-default">Login</button>
                         </form>
                         <a href="/register"><button type="submit" class="btn btn-default">Signup</button></a>

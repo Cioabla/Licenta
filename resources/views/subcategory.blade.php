@@ -19,24 +19,24 @@
                     <div class="left-sidebar">
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            @foreach($data['categories'] as $category)
+                            @foreach($data->categories as $category)
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#{{ $category['id'] }}">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#{{ $category->id }}">
                                                 <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                                {{ $category['name'] }}
+                                                {{ $category->name }}
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="{{ $category['id'] }}" class="panel-collapse collapse">
+                                    <div id="{{ $category->id }}" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul>
-                                                @foreach($data['subcategories'] as $subcategory)
+                                                @foreach($data->subcategories as $subcategory)
 
-                                                    @if($subcategory['category_id'] == $category['id'])
-                                                        <li><a href="/category/{{ $subcategory['name'] }}/1">{{ $subcategory['name'] }}</a></li>
+                                                    @if($subcategory->category_id == $category->id)
+                                                        <li><a href="/category/{{ $subcategory->name }}/1">{{ $subcategory->name }}</a></li>
                                                     @endif
                                                 @endforeach
 
@@ -56,15 +56,17 @@
                 <div class="col-sm-9 padding-right">
                     <div class="features_items here"><!--features_items-->
                         <div id="page-content">
-                        @foreach($data['products'] as $product)
+                        @foreach($data->products as $product)
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
-                                        <div class="productinfo text-center">
-                                            <img src="{{ $product['img'] }}" alt="" />
-                                            <h2>${{ $product['price'] }}</h2>
-                                            <p>{{ $product['name'] }}</p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                        </div>
+                                       <a href="/product/{{$product->name}}">
+                                           <div class="productinfo text-center">
+                                               <img src="{{ $product->img }}" alt="" />
+                                               <h2>${{ $product->price }}</h2>
+                                               <p>{{ $product->name }}</p>
+                                               <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                           </div>
+                                       </a>
                                         <div class="choose">
                                             <ul class="nav nav-pills nav-justified">
                                                 <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
@@ -77,14 +79,14 @@
                         </div>
                     </div><!--features_items-->
                     <?php
-                        $length = ceil($data['length']/12);
+                        $length = ceil($data->length/12);
                     ?>
                     <div class="text-center">
                         <div class="pagination">
                             @if($length>1)
                                 <a class="previousPage">&laquo;</a>
                                 @for($i=0;$i<$length;$i++)
-                                    @if($i==$data['page']-1)
+                                    @if($i==$data->page-1)
                                         <a class="active page page{{$i+1}}" data-id="{{ $i+1 }}">{{ $i+1 }}</a>
                                     @else
                                         <a class="page page{{$i+1}}" data-id="{{$i+1}}">{{$i+1}}</a>
@@ -99,7 +101,7 @@
             </div>
         </div>
     </section>
-    <div class="name" data-id="{{ $data['name'] }}" style="display: none;">
+    <div class="name" data-id="{{ $data->name }}" style="display: none;">
     <div class="nrPage" data-id="{{ $length }}" style="display: none;">
 @endsection
 
@@ -128,6 +130,7 @@
                             $('#page-content').append(
                                 '<div class="col-sm-4">' +
                                 '<div class="product-image-wrapper">' +
+                                '<a href="/product/'+value['name']+'">'+
                                 '<div class="single-products">' +
                                 '<div class="productinfo text-center">' +
                                 '<img src="'+value['img']+'" alt="" />' +
@@ -136,6 +139,7 @@
                                 '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>' +
                                 '</div>' +
                                 '</div>' +
+                                '</a>'+
                                 '<div class="choose">' +
                                 '<ul class="nav nav-pills nav-justified">' +
                                 '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>' +
@@ -176,6 +180,7 @@
                             $('#page-content').append(
                                 '<div class="col-sm-4">' +
                                 '<div class="product-image-wrapper">' +
+                                '<a href="/product/'+value['name']+'">'+
                                 '<div class="single-products">' +
                                 '<div class="productinfo text-center">' +
                                 '<img src="'+value['img']+'" alt="" />' +
@@ -184,6 +189,7 @@
                                 '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>' +
                                 '</div>' +
                                 '</div>' +
+                                '</a>'+
                                 '<div class="choose">' +
                                 '<ul class="nav nav-pills nav-justified">' +
                                 '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>' +
@@ -220,6 +226,7 @@
                         $('#page-content').append(
                             '<div class="col-sm-4">' +
                                 '<div class="product-image-wrapper">' +
+                                    '<a href="/product/'+value['name']+'">'+
                                     '<div class="single-products">' +
                                         '<div class="productinfo text-center">' +
                                             '<img src="'+value['img']+'" alt="" />' +
@@ -228,6 +235,7 @@
                                             '<a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>' +
                                          '</div>' +
                                      '</div>' +
+                                    '</a>'+
                                      '<div class="choose">' +
                                         '<ul class="nav nav-pills nav-justified">' +
                                             '<li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>' +

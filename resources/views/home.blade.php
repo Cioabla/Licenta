@@ -78,24 +78,24 @@
                     <div class="left-sidebar">
                         <h2>Category</h2>
                         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            @foreach($data['categories'] as $category)
+                            @foreach($data->categories as $category)
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordian" href="#{{ $category['id'] }}">
+                                            <a data-toggle="collapse" data-parent="#accordian" href="#{{ $category->id }}">
                                                 <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                                {{ $category['name'] }}
+                                                {{ $category->name }}
                                             </a>
                                         </h4>
                                     </div>
-                                    <div id="{{ $category['id'] }}" class="panel-collapse collapse">
+                                    <div id="{{ $category->id }}" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul>
-                                                @foreach($data['subcategories'] as $subcategory)
+                                                @foreach($data->subcategories as $subcategory)
 
-                                                    @if($subcategory['category_id'] == $category['id'])
-                                                        <li><a href="/category/{{ $subcategory['name'] }}/1">{{ $subcategory['name'] }}</a></li>
+                                                    @if($subcategory->category_id == $category->id)
+                                                        <li><a href="/category/{{ $subcategory->name }}/1">{{ $subcategory->name }}</a></li>
                                                     @endif
                                                 @endforeach
 
@@ -117,15 +117,15 @@
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Features Items</h2>
                         <?php $i = 0 ;?>
-                        @foreach($data['homeproduces'] as $produce)
-                            @if($produce[1]['location'] == 'features' && $i<6)
+                        @foreach($data->homeproduces as $produce)
+                            @if($produce->location == 'features' && $i<6)
                                 <div class="col-sm-4">
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="{{ $produce[0]['img']}}" alt="" />
-                                                <h2>${{ $produce[0]['price']}}</h2>
-                                                <p>{{ $produce[0]['name']}}</p>
+                                                <img src="{{ $produce->img}}" alt="" />
+                                                <h2>${{ $produce->price}}</h2>
+                                                <p>{{ $produce->name}}</p>
                                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
@@ -147,15 +147,15 @@
                             <h2 class="title text-center">Discounts</h2>
                             <?php $j = 0?>
 
-                            @foreach($data['homeproduces'] as $produce)
-                                @if($produce[1]['location'] == 'choice' && $j<6)
+                            @foreach($data->homeproduces as $produce)
+                                @if($produce->location == 'choice' && $j<6)
                                         <div class="col-sm-4">
                                             <div class="product-image-wrapper">
                                                 <div class="single-products">
                                                     <div class="productinfo text-center">
-                                                        <img src="{{ $produce[0]['img']}}" alt="" />
-                                                        <h2>${{ $produce[0]['price']}}</h2>
-                                                        <p>{{ $produce[0]['name']}}</p>
+                                                        <img src="{{ $produce->img}}" alt="" />
+                                                        <h2>${{ $produce->price}}</h2>
+                                                        <p>{{ $produce->name}}</p>
                                                         <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                     </div>
                                                 </div>
@@ -179,17 +179,17 @@
                         <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 <?php $i=0; ?>
-                                @foreach($data['homeproduces'] as $produce)
-                                    @if($produce[1]['location'] == 'recomanded')
+                                @foreach($data->homeproduces as $produce)
+                                    @if($produce->location == 'recomanded')
                                             @if($i==0)
                                                 <div class="item active">
                                                     <div class="col-sm-4">
                                                         <div class="product-image-wrapper">
                                                             <div class="single-products">
                                                                 <div class="productinfo text-center">
-                                                                    <img src="{{ $produce[0]['img']}}" alt="" />
-                                                                    <h2>${{ $produce[0]['price']}}</h2>
-                                                                    <p>{{ $produce[0]['name']}}</p>
+                                                                    <img src="{{ $produce->img}}" alt="" />
+                                                                    <h2>${{ $produce->price}}</h2>
+                                                                    <p>{{ $produce->name}}</p>
                                                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                 </div>
                                                             </div>
@@ -201,9 +201,9 @@
                                                                 <div class="product-image-wrapper">
                                                                     <div class="single-products">
                                                                         <div class="productinfo text-center">
-                                                                            <img src="{{ $produce[0]['img']}}" alt="" />
-                                                                            <h2>${{ $produce[0]['price']}}</h2>
-                                                                            <p>{{ $produce[0]['name']}}</p>
+                                                                            <img src="{{ $produce->img}}" alt="" />
+                                                                            <h2>${{ $produce->price}}</h2>
+                                                                            <p>{{ $produce->name}}</p>
                                                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                         </div>
                                                                     </div>
@@ -217,9 +217,9 @@
                                                                 <div class="product-image-wrapper">
                                                                     <div class="single-products">
                                                                         <div class="productinfo text-center">
-                                                                            <img src="{{ $produce[0]['img']}}" alt="" />
-                                                                            <h2>${{ $produce[0]['price']}}</h2>
-                                                                            <p>{{ $produce[0]['name']}}</p>
+                                                                            <img src="{{ $produce->img}}" alt="" />
+                                                                            <h2>${{ $produce->price}}</h2>
+                                                                            <p>{{ $produce->name}}</p>
                                                                             <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                         </div>
                                                                     </div>
@@ -231,9 +231,9 @@
                                                                         <div class="product-image-wrapper">
                                                                             <div class="single-products">
                                                                                 <div class="productinfo text-center">
-                                                                                    <img src="{{ $produce[0]['img']}}" alt="" />
-                                                                                    <h2>${{ $produce[0]['price']}}</h2>
-                                                                                    <p>{{ $produce[0]['name']}}</p>
+                                                                                    <img src="{{ $produce->img}}" alt="" />
+                                                                                    <h2>${{ $produce->price}}</h2>
+                                                                                    <p>{{ $produce->name}}</p>
                                                                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                                                 </div>
                                                                             </div>
